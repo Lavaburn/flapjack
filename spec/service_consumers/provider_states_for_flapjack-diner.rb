@@ -1,3 +1,4 @@
+# encoding: utf-8
 Pact.provider_states_for "flapjack-diner" do
 
   provider_state "no contact exists" do

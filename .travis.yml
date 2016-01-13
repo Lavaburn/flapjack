@@ -19,16 +19,3 @@ install:
 - go get github.com/oguzbilgic/pandik
 - bundle install
 script: "bundle exec rspec spec && bundle exec rake pact:verify && bundle exec cucumber features && cd src/flapjack && go test -v"
-notifications:
-  irc:
-    channels:
-      - 'irc.freenode.net#flapjack'
-    template:
-      - '%{message} %{repository}#%{build_number} (%{branch} - %{commit} : %{author})'
-  hipchat:
-    template:
-      - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
-        (<a href="%{build_url}">Details</a>/<a href="%{compare_url}">Change view</a>)'
-    format: html
-    rooms:
-      secure: ajMolTKDuprYJ9Fadcjb3evh80MyJSgjW4hl4OWnEHyrjQLnsO0hbAvSrKRFUzorMoi58L8XZXd01gMgRqRxMvwqfoHLv4njw8px4X9+F/hySPZj3aMAFM1HuoTmHqeP+Rl+1Ssg+Kss6N4JkgNS81s+tkRnnoHG1n/EhfH6PkE=
