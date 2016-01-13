@@ -171,6 +171,7 @@ Before('@notifier') do
                 'sms_queue' => 'sms_notifications',
                 'sms_nexmo_queue' => 'sms_nexmo_notifications',
                 'sns_queue' => 'sns_notifications',
+                'voiceblue_email2sms_queue' => 'voiceblue_email2sms_notifications',
                 'default_contact_timezone' => 'America/New_York'})
   @notifier_redis = @notifier.instance_variable_get('@redis')
 end

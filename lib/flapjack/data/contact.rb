@@ -29,7 +29,8 @@ module Flapjack
         'sms_nexmo',
         'jabber',
         'pagerduty',
-        'sns'
+        'sns',
+        'voiceblue_email2sms'
       ]
 
       def self.all(options = {})

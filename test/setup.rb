@@ -31,3 +31,11 @@ medium_hipchat = {
   :rollup_threshold => 0
 }
 Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_hipchat])
+
+medium_vb = {
+  :type             => 'voiceblue_email2sms',
+  :address          => '0955874880',
+  :interval         => 1,
+  :rollup_threshold => 0
+}
+Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_vb])

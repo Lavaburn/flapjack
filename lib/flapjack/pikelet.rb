@@ -27,6 +27,7 @@ require 'flapjack/gateways/slack'
 require 'flapjack/gateways/sms_twilio'
 require 'flapjack/gateways/sms_nexmo'
 require 'flapjack/gateways/aws_sns'
+require 'flapjack/gateways/voiceblue_email2sms'
 require 'flapjack/gateways/web'
 require 'flapjack/logger'
 require 'thin/version'
@@ -98,17 +99,19 @@ module Flapjack
 
     class Generic < Flapjack::Pikelet::Base
 
-     PIKELET_TYPES = {'notifier'   => Flapjack::Notifier,
-                      'processor'  => Flapjack::Processor,
-                      'jabber'     => Flapjack::Gateways::Jabber,
-                      'pagerduty'  => Flapjack::Gateways::Pagerduty,
-                      'oobetet'    => Flapjack::Gateways::Oobetet,
-                      'email'      => Flapjack::Gateways::Email,
-                      'sms'        => Flapjack::Gateways::SmsMessagenet,
-                      'slack'      => Flapjack::Gateways::Slack,
-                      'sms_twilio' => Flapjack::Gateways::SmsTwilio,
-                      'sms_nexmo'  => Flapjack::Gateways::SmsNexmo,
-                      'sns'        => Flapjack::Gateways::AwsSns}
+     PIKELET_TYPES = {'notifier'            => Flapjack::Notifier,
+                      'processor'           => Flapjack::Processor,
+                      'jabber'              => Flapjack::Gateways::Jabber,
+                      'pagerduty'           => Flapjack::Gateways::Pagerduty,
+                      'oobetet'             => Flapjack::Gateways::Oobetet,
+                      'email'               => Flapjack::Gateways::Email,
+                      'sms'                 => Flapjack::Gateways::SmsMessagenet,
+                      'slack'               => Flapjack::Gateways::Slack,
+                      'sms_twilio'          => Flapjack::Gateways::SmsTwilio,
+                      'sms_nexmo'           => Flapjack::Gateways::SmsNexmo,
+                      'sns'                 => Flapjack::Gateways::AwsSns,
+                      'voiceblue_email2sms' => Flapjack::Gateways::VoiceblueEmail2sms,
+     }
 
       def self.create(type, opts = {})
         self.new(type, PIKELET_TYPES[type], :config => opts[:config],
