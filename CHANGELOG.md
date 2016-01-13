@@ -1,5 +1,9 @@
 ## Flapjack Changelog
 
+# RCS - 1.7.1 - 2016-01-13
+- Feature: e-mail gateway, specific for 2N Voiceblue's Email2SMS feature.  (@Lavaburn)
+  Because Flapjack does not support instantiation of gateways, I couldn't re-use the Email module direct.
+
 # 1.6.0 - 2015-07-09
 - No changes
 
