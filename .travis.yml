@@ -1,10 +1,12 @@
 language: ruby
 rvm:
-- '2.0'
-- '2.1'
-- '2.2'
+- '1.9'
+#- '2.0'
+#- '2.1'
+#- '2.2'
 env:
-- GOPATH=$TRAVIS_BUILD_DIR
+#- GOPATH=$TRAVIS_BUILD_DIR
+- SHOW_LOGGER_ALL=true COVERAGE=true 
 services:
 - redis-server
 before_script:
@@ -13,9 +15,10 @@ before_install:
 - git submodule update --init --recursive
 - gem install bundler
 install:
-- go get github.com/garyburd/redigo/redis
-- go get github.com/go-martini/martini
-- go get gopkg.in/alecthomas/kingpin.v1
-- go get github.com/oguzbilgic/pandik
+#- go get github.com/garyburd/redigo/redis
+#- go get github.com/go-martini/martini
+#- go get gopkg.in/alecthomas/kingpin.v1
+#- go get github.com/oguzbilgic/pandik
 - bundle install
-script: "bundle exec rspec spec && bundle exec rake pact:verify && bundle exec cucumber features && cd src/flapjack && go test -v"
+- ./build.sh
+script: "bundle exec rake pact:verify && bundle exec rake verify"
