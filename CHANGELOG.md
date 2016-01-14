@@ -1,5 +1,9 @@
 ## Flapjack Changelog
 
+# RCS - 1.7.2 - 2016-01-14
+- Feature: Allow extra parameter: extra_data [Hash] (event incoming => alert outgoing).  (@Lavaburn)
+  This would allow us to send graphs/URLs from Sensu and output them to Mail,Hipchat
+
 # RCS - 1.7.1 - 2016-01-13
 - Feature: e-mail gateway, specific for 2N Voiceblue's Email2SMS feature.  (@Lavaburn)
   Because Flapjack does not support instantiation of gateways, I couldn't re-use the Email module direct.

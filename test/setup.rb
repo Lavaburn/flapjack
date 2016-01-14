@@ -22,7 +22,7 @@ Flapjack::Diner.create_contacts([contact_nicolas_data])
 
 # 3. Attach Contact to Entity
 Flapjack::Diner.update_entities(entity_all_data[:id], :add_contact => contact_nicolas_data[:id])
-  
+
 # 4. Create Media 
 medium_hipchat = {
   :type             => 'jabber',
@@ -32,10 +32,10 @@ medium_hipchat = {
 }
 Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_hipchat])
 
-medium_vb = {
-  :type             => 'voiceblue_email2sms',
-  :address          => '0955874880',
-  :interval         => 1,
-  :rollup_threshold => 0
-}
-Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_vb])
+#medium_vb = {
+#  :type             => 'voiceblue_email2sms',
+#  :address          => '0955874880',
+#  :interval         => 1,
+#  :rollup_threshold => 0
+#}
+#Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_vb])
