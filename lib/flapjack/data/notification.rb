@@ -62,7 +62,8 @@ module Flapjack
                  'state_duration' => opts[:state_duration],
                  'type'           => opts[:type] || type_for_event(event),
                  'severity'       => opts[:severity],
-                 'tags'           => tag_data }
+                 'tags'           => tag_data,
+                 'extra_data'     => event.extra_data}
 
         redis.rpush(queue, Flapjack.dump_json(notif))
       end
@@ -116,7 +117,8 @@ module Flapjack
                        'time'              => @time,
                        'notification_type' => @type,
                        'event_count'       => @count,
-                       'tags'              => @tags
+                       'tags'              => @tags,
+                       'extra_data'        => @extra_data,
                       }
       end
 
@@ -269,6 +271,7 @@ module Flapjack
         @type           = opts['type']
         @severity       = opts['severity']
         @tags           = opts['tags'].is_a?(Array) ? Set.new(opts['tags']) : nil
+        @extra_data     = opts['extra_data']
       end
 
       # # time restrictions match?

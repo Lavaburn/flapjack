@@ -20,8 +20,11 @@ describe Flapjack::Data::Event do
                       'perfdata' => "/=5504MB;5554;6348;0;7935",
                       'acknowledgement_id' => '1234',
                       'duration' => (60 * 60),
-                      'tags'     => ['dev'] }
-  }
+                      'tags'     => ['dev'],
+                      'extra_data' => {
+                         'a' => '1',
+                         'b' => '2',}
+  } }
 
   before(:each) do
     Flapjack::Data::Event.instance_variable_set('@previous_base_time_str', nil)

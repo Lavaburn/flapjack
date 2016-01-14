@@ -10,3 +10,8 @@
 <% if @alert.summary && !@alert.summary.empty? -%>
 , <%= @alert.summary -%>
 <% end -%>
+<% if @alert.extra_data && !@alert.extra_data.empty? -%>
+  <% @alert.extra_data.each do |k,v| %>
+    <%= k %> = <%= v %> 
+  <% end %>
+<% end -%>
