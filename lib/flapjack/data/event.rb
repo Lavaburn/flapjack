@@ -11,12 +11,12 @@ module Flapjack
       attr_accessor :counter, :id_hash, :tags
 
       attr_reader :check, :summary, :details, :acknowledgement_id, :perfdata,
-                  :initial_failure_delay, :repeat_failure_delay
+                  :initial_failure_delay, :repeat_failure_delay, :extra_data
 
       REQUIRED_KEYS = ['type', 'state', 'entity', 'check']
       OPTIONAL_KEYS = ['time', 'summary', 'details', 'acknowledgement_id',
                        'duration', 'tags', 'perfdata', 'initial_failure_delay',
-                       'repeat_failure_delay']
+                       'repeat_failure_delay', 'extra_data']
 
       VALIDATIONS = {
         proc {|e| e['type'].is_a?(String) &&
@@ -73,6 +73,10 @@ module Flapjack
                   (e['tags'].is_a?(Array) &&
                    e['tags'].all? {|tag| tag.is_a?(String)}) } =>
           "tags must be an array of strings",
+           
+        proc {|e| e['extra_data'].nil? ||
+                  e['extra_data'].is_a?(Hash) } =>
+          "extra_data must be a Hash",          
       }
 
       # Helper method for getting the next event.
@@ -233,7 +237,7 @@ module Flapjack
       def initialize(attrs = {})
         ['type', 'state', 'entity', 'check', 'time', 'summary', 'details',
          'perfdata', 'acknowledgement_id', 'duration', 'initial_failure_delay',
-         'repeat_failure_delay'].each do |key|
+         'repeat_failure_delay', 'extra_data'].each do |key|
 
           instance_variable_set("@#{key}", Flapjack.sanitize(attrs[key]))
         end

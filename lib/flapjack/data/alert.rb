@@ -26,7 +26,8 @@ module Flapjack
                   :time,
                   :notification_type,
                   :event_count,
-                  :tags
+                  :tags,
+                  :extra_data
 
       # from Flapjack::Data::Message
                 # :id,
@@ -68,6 +69,7 @@ module Flapjack
         @notification_type          = contents['notification_type']
         @event_count                = contents['event_count']
         @tags                       = contents['tags']
+        @extra_data                 = contents['extra_data']
 
         @media                      = contents['media']
         @address                    = contents['address']

@@ -21,4 +21,4 @@ install:
 #- go get github.com/oguzbilgic/pandik
 - bundle install
 - ./build.sh
-script: "bundle exec rake pact:verify && bundle exec rake verify"
+script: "bundle exec rake pact:verify && bundle exec rake tests"
