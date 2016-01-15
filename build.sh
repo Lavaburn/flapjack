@@ -16,6 +16,8 @@ go get github.com/alecthomas/kingpin
 cd $gopath/src/github.com/alecthomas/kingpin
 git checkout v1.3.7
 cd $gopath
+mkdir -p $gopath/src/gopkg.in/alecthomas
+rm -rf $gopath/src/gopkg.in/alecthomas/kingpin.v1
 ln -s $gopath/src/github.com/alecthomas/kingpin $gopath/src/gopkg.in/alecthomas/kingpin.v1
 
 go test flapjack
