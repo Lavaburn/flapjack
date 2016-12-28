@@ -767,6 +767,10 @@ module Flapjack
         @redis.hget("check:#{@key}", 'summary')
       end
 
+      def extra_data
+        @redis.hget("check:#{@key}", 'extra_data')
+      end
+
       def details
         @redis.hget("check:#{@key}", 'details')
       end

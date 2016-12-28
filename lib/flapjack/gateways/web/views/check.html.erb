@@ -218,15 +218,26 @@
 
 <div class="row">
   <div id="output" class="col-md-6">
-    <h3>Output: <%= h @check_summary %></h3>
+    <h2>Output: <%= h @check_summary %></h2>
     <p><%= h @check_details %></p>
     <% if @check_perfdata && @check_perfdata.is_a?(Array) %>
-    <h3>Performance Data:</h3>
+    <h2>Performance Data:</h2>
     <table>
       <% @check_perfdata.each do |perfdata| %>
       <tr>
         <td><%= perfdata["key"] %></td>
         <td><%= perfdata["value"] %></td>
+      </tr>
+      <% end %>
+    </table>
+    <% end %>
+    <% if @check_extra_data && @check_extra_data.is_a?(Hash) && ! @check_extra_data.empty? %>
+    <h2>Check Information:</h2>
+    <table>
+      <% @check_extra_data.each do |k,v| %>
+      <tr>
+        <td><%= k %></td>
+        <td><%= v %></td>
       </tr>
       <% end %>
     </table>

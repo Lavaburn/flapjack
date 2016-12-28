@@ -120,9 +120,10 @@ module Flapjack
             ec = Flapjack::Data::EntityCheck.for_event_id(alert, :redis => @redis)
             last_change = ec.last_change
             memo[alert] = {
-              'duration' => last_change ? (Time.now.to_i - last_change) : nil,
-              'state'    => ec.state,
-              'summary'  => ec.summary
+              'duration'   => last_change ? (Time.now.to_i - last_change) : nil,
+              'state'      => ec.state,
+              'summary'    => ec.summary,
+              'extra_data' => ec.extra_data
             }
             memo
           end

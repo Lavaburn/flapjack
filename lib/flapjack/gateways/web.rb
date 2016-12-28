@@ -298,6 +298,7 @@ module Flapjack
         @check_summary              = entity_check.summary
         @check_details              = entity_check.details
         @check_perfdata             = entity_check.perfdata
+        @check_extra_data           = entity_check.extra_data
 
         @check_initial_failure_delay = entity_check.initial_failure_delay ||
           Flapjack::DEFAULT_INITIAL_FAILURE_DELAY
