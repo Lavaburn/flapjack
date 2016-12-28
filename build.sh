@@ -2,23 +2,14 @@
 
 set -e
 
-export GOPATH=$(pwd):$GOPATH
+export GOPATH=$(pwd)
 
 go get github.com/garyburd/redigo/redis
 go get github.com/go-martini/martini
 go get github.com/oguzbilgic/pandik
-mv bin/pandik libexec/httpchecker
+go get gopkg.in/alecthomas/kingpin.v1
 
-# Stopped working between 1/jan and 15/jan 2015 !!!
-	# go get gopkg.in/alecthomas/kingpin.v1
-gopath=$(pwd)	
-go get github.com/alecthomas/kingpin
-cd $gopath/src/github.com/alecthomas/kingpin
-git checkout v1.3.7
-cd $gopath
-mkdir -p $gopath/src/gopkg.in/alecthomas
-rm -rf $gopath/src/gopkg.in/alecthomas/kingpin.v1
-ln -s $gopath/src/github.com/alecthomas/kingpin $gopath/src/gopkg.in/alecthomas/kingpin.v1
+mv bin/pandik libexec/httpchecker
 
 go test flapjack
 

@@ -1,9 +1,6 @@
 language: ruby
 rvm:
-- '1.9'
-#- '2.0'
-#- '2.1'
-#- '2.2'
+- '2.2'
 env:
 #- GOPATH=$TRAVIS_BUILD_DIR
 - SHOW_LOGGER_ALL=true COVERAGE=true 
