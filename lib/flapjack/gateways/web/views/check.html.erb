@@ -218,10 +218,10 @@
 
 <div class="row">
   <div id="output" class="col-md-6">
-    <h2>Output: <%= h @check_summary %></h2>
+    <h4>Output: <%= h @check_summary %></h4>
     <p><%= h @check_details %></p>
     <% if @check_perfdata && @check_perfdata.is_a?(Array) %>
-    <h2>Performance Data:</h2>
+    <h4>Performance Data:</h4>
     <table>
       <% @check_perfdata.each do |perfdata| %>
       <tr>
@@ -232,7 +232,7 @@
     </table>
     <% end %>
     <% if @check_extra_data && @check_extra_data.is_a?(Hash) && ! @check_extra_data.empty? %>
-    <h2>Check Information:</h2>
+    <h4>Check Information:</h4>
     <table>
       <% @check_extra_data.each do |k,v| %>
       <tr>

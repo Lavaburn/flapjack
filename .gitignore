@@ -37,3 +37,5 @@ libexec/oneoff.linux_386
 libexec/oneoff.linux_amd64
 src/github.com
 src/gopkg.in
+/reports/
+/pkg/
