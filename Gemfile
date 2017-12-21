@@ -20,4 +20,12 @@ group :test do
   gem 'guard-cucumber'
   gem 'fuubar'
   gem 'simplecov', :require => false
+  
+  gem 'activesupport', '~> 4.2.10'
+  gem 'rack', '~> 1.6.8'
+  gem 'ruby_dep', '~> 1.3.1'
+  gem 'webrick', '~> 1.3.1'
+  gem 'listen', '~> 3.0.8'
+  
+  
 end

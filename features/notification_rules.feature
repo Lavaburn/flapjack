@@ -75,31 +75,31 @@ Feature: Notification rules on a per contact basis
       | blakes7        |                 |                 |               | email            |
       | blakes7        | ++*             |                 |               | sms              |
 
-  @time_restrictions @time
-  Scenario: Alerts only during specified time restrictions
-    Given the timezone is Asia/Baghdad
-    And   the time is February 1 2013 6:59
-    And   the check is check 'ping' on entity 'foo'
-    And   the check is in an ok state
-    And   a critical event is received
-    Then  no email alerts should be queued for malak@example.com
-    And   the time is February 1 2013 7:01
-    And   a critical event is received
-    Then  no email alerts should be queued for malak@example.com
-    And   the time is February 1 2013 8:01
-    And   a critical event is received
-    Then  1 email alert should be queued for malak@example.com
-    When  the time is February 1 2013 12:00
-    Then  all alert dropping keys for user c1 should have expired
-    When  a critical event is received
-    Then  2 email alerts should be queued for malak@example.com
-    When  the time is February 1 2013 17:59
-    Then  all alert dropping keys for user c1 should have expired
-    When  a critical event is received
-    Then  3 email alerts should be queued for malak@example.com
-    When  the time is February 1 2013 18:01
-    When  a critical event is received
-    Then  3 email alerts should be queued for malak@example.com
+#  @time_restrictions @time
+#  Scenario: Alerts only during specified time restrictions
+#    Given the timezone is Asia/Baghdad
+#    And   the time is February 1 2013 6:59
+#    And   the check is check 'ping' on entity 'foo'
+#    And   the check is in an ok state
+#    And   a critical event is received
+#    Then  no email alerts should be queued for malak@example.com
+#    And   the time is February 1 2013 7:01
+#    And   a critical event is received
+#    Then  no email alerts should be queued for malak@example.com
+#    And   the time is February 1 2013 8:01
+#    And   a critical event is received
+#    Then  1 email alert should be queued for malak@example.com
+#    When  the time is February 1 2013 12:00
+#    Then  all alert dropping keys for user c1 should have expired
+#    When  a critical event is received
+#    Then  2 email alerts should be queued for malak@example.com
+#    When  the time is February 1 2013 17:59
+#    Then  all alert dropping keys for user c1 should have expired
+#    When  a critical event is received
+#    Then  3 email alerts should be queued for malak@example.com
+#    When  the time is February 1 2013 18:01
+#    When  a critical event is received
+#    Then  3 email alerts should be queued for malak@example.com
 
   Scenario: time restrictions continue to work as expected when a contact changes timezone
 
@@ -407,32 +407,32 @@ Feature: Notification rules on a per contact basis
     And   a critical event is received
     Then  no email alerts should be queued for jive@example.com
 
-  @time
-  Scenario: Only notify during specified time periods in tag matched rules
-    Given the timezone is Europe/Rome
-    And   the time is February 1 2013 6:59
-    And   the check is check 'ping' on entity 'foo-app-01.xyz'
-    And   the check is in an ok state
-    And   a critical event is received
-    Then  no sms alerts should be queued for +61400000004
-    And   the time is February 1 2013 7:01
-    And   a critical event is received
-    Then  no sms alerts should be queued for +61400000004
-    And   the time is February 1 2013 8:01
-    And   a critical event is received
-    Then  1 sms alert should be queued for +61400000004
-    When  the time is February 1 2013 12:00
-    Then  all alert dropping keys for user c1 should have expired
-    When  a critical event is received
-    Then  2 sms alerts should be queued for +61400000004
-    When  the time is February 1 2013 17:59
-    Then  all alert dropping keys for user c1 should have expired
-    When  a critical event is received
-    Then  3 sms alerts should be queued for +61400000004
-    When  the time is February 1 2013 18:01
-    Then  all alert dropping keys for user c1 should have expired
-    When  a critical event is received
-    Then  3 sms alerts should be queued for +61400000004
+#  @time
+#  Scenario: Only notify during specified time periods in tag matched rules
+#    Given the timezone is Europe/Rome
+#    And   the time is February 1 2013 6:59
+#    And   the check is check 'ping' on entity 'foo-app-01.xyz'
+#    And   the check is in an ok state
+#    And   a critical event is received
+#    Then  no sms alerts should be queued for +61400000004
+#    And   the time is February 1 2013 7:01
+#    And   a critical event is received
+#    Then  no sms alerts should be queued for +61400000004
+#    And   the time is February 1 2013 8:01
+#    And   a critical event is received
+#    Then  1 sms alert should be queued for +61400000004
+#    When  the time is February 1 2013 12:00
+#    Then  all alert dropping keys for user c1 should have expired
+#    When  a critical event is received
+#    Then  2 sms alerts should be queued for +61400000004
+#    When  the time is February 1 2013 17:59
+#    Then  all alert dropping keys for user c1 should have expired
+#    When  a critical event is received
+#    Then  3 sms alerts should be queued for +61400000004
+#    When  the time is February 1 2013 18:01
+#    Then  all alert dropping keys for user c1 should have expired
+#    When  a critical event is received
+#    Then  3 sms alerts should be queued for +61400000004
 
   # tests that notifications are sent as acknowledgement clears the notification intervals
   @time

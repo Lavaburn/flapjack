@@ -62,7 +62,8 @@ describe Flapjack::Gateways::SmsTwilio, :logger => true do
                 'nation, conceived i...'}
     req = stub_request(:post, "https://api.twilio.com/2010-04-01/Accounts/the_account_sid/Messages.json").
       with(:body  => body).
-      with(:headers => {'Authorization'=>['the_account_sid', 'the_auth_token']}).
+      #with(:headers => {'Authorization'=>['the_account_sid', 'the_auth_token']}).
+      with(:headers => {'Authorization'=>'Basic dGhlX2FjY291bnRfc2lkOnRoZV9hdXRoX3Rva2Vu'}).
       to_return(:status => 200)
 
     EM.synchrony do

@@ -390,16 +390,18 @@ Given /^user (\S+) has the following notification rules:$/ do |contact_id, rules
     unknown_blackhole  = rule['unknown_blackhole']  ? (rule['unknown_blackhole'].downcase == 'true')  : false
     warning_blackhole  = rule['warning_blackhole']  ? (rule['warning_blackhole'].downcase == 'true')  : false
     critical_blackhole = rule['critical_blackhole'] ? (rule['critical_blackhole'].downcase == 'true') : false
-    time_restrictions  = rule['time_restrictions']  ? rule['time_restrictions'].split(',').map { |x|
-      x.strip
-    }.inject([]) { |memo, time_restriction|
-      case time_restriction
-      when '8-18 weekdays'
-        weekdays_8_18 = IceCube::Schedule.new(time_zone.local(2013,2,1,8,0,0), :duration => 60 * 60 * 10)
-        weekdays_8_18.add_recurrence_rule(IceCube::Rule.weekly.day(:monday, :tuesday, :wednesday, :thursday, :friday))
-        memo << icecube_schedule_to_time_restriction(weekdays_8_18, time_zone)
-      end
-    } : []
+# TODO
+#    time_restrictions  = rule['time_restrictions']  ? rule['time_restrictions'].split(',').map { |x|
+#      x.strip
+#    }.inject([]) { |memo, time_restriction|
+#      case time_restriction
+#      when '8-18 weekdays'
+#        weekdays_8_18 = IceCube::Schedule.new(time_zone.local(2013,2,1,8,0,0), :duration => 60 * 60 * 10)
+#        weekdays_8_18.add_recurrence_rule(IceCube::Rule.weekly.day(:monday, :tuesday, :wednesday, :thursday, :friday))
+#        memo << icecube_schedule_to_time_restriction(weekdays_8_18, time_zone)
+#      end
+#    } : []
+    time_restrictions = []
     rule_data = {:contact_id         => contact_id,
                  :entities           => entities,
                  :regex_entities     => regex_entities,

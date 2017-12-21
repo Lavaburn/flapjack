@@ -110,7 +110,8 @@ describe Flapjack::Gateways::Pagerduty, :logger => true do
     stub_request(:get, "https://flpjck.pagerduty.com/api/v1/incidents?" +
       "fields=incident_number,status,last_status_change_by&incident_key=#{check}&" +
       "since=#{since}&status=acknowledged&until=#{unt}").
-      with(:headers => {'Authorization'=>['flapjack', 'password123']}).
+      #with(:headers => {'Authorization'=>['flapjack', 'password123']}).
+      with(:headers => {'Authorization'=>'Basic ZmxhcGphY2s6cGFzc3dvcmQxMjM='}).
       to_return(:status => 200, :body => response.to_json, :headers => {})
 
     expect(Flapjack::RedisPool).to receive(:new).and_return(redis)
