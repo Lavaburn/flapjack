@@ -28,6 +28,7 @@ require 'flapjack/gateways/sms_twilio'
 require 'flapjack/gateways/sms_nexmo'
 require 'flapjack/gateways/aws_sns'
 require 'flapjack/gateways/voiceblue_email2sms'
+require 'flapjack/gateways/hipchat'
 require 'flapjack/gateways/web'
 require 'flapjack/logger'
 require 'thin/version'
@@ -111,6 +112,7 @@ module Flapjack
                       'sms_nexmo'           => Flapjack::Gateways::SmsNexmo,
                       'sns'                 => Flapjack::Gateways::AwsSns,
                       'voiceblue_email2sms' => Flapjack::Gateways::VoiceblueEmail2sms,
+                      'hipchat'             => Flapjack::Gateways::Hipchat,
      }
 
       def self.create(type, opts = {})

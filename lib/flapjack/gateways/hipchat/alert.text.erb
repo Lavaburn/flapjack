@@ -1,0 +1,3 @@
+<%= @alert.state_title_case -%>: "<%= @alert.check -%>" on <%= @alert.entity -%>:<%- if @alert.summary && !@alert.summary.empty? -%>
+ <%= @alert.summary -%><%- end -%>
+<%- if @ack_str -%> [<%= @ack_str -%>]<%- end -%>

@@ -605,6 +605,7 @@ module Flapjack
         summary = options[:summary]
         details = options[:details]
         perfdata = options[:perfdata]
+        extra_data = options[:extra_data]
         count = options[:count]
         initial_delay = options[:initial_failure_delay]
         repeat_delay = options[:repeat_failure_delay]
@@ -662,7 +663,9 @@ module Flapjack
             multi.hset("check:#{@key}", 'perfdata', format_perfdata(perfdata).to_json)
   #          multi.set("#{@key}:#{timestamp}:perfdata", perfdata)
           end
-
+          if extra_data
+            multi.hset("check:#{@key}", 'extra_data', extra_data.to_json)
+          end
         end
       end
 
@@ -768,7 +771,14 @@ module Flapjack
       end
 
       def extra_data
-        @redis.hget("check:#{@key}", 'extra_data')
+        json = @redis.hget("check:#{@key}", 'extra_data')
+        begin
+          data = JSON.parse(json) if json
+        rescue
+          data = "Unable to parse string: #{json}"
+        end
+      
+        data
       end
 
       def details

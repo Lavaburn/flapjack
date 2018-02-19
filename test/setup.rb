@@ -24,13 +24,13 @@ Flapjack::Diner.create_contacts([contact_nicolas_data])
 Flapjack::Diner.update_entities(entity_all_data[:id], :add_contact => contact_nicolas_data[:id])
 
 # 4. Create Media 
-medium_hipchat = {
-  :type             => 'jabber',
-  :address          => '188712_juba_server_infra@conf.hipchat.com',
-  :interval         => 1,
-  :rollup_threshold => 0
-}
-Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_hipchat])
+#medium_hipchat = {
+#  :type             => 'jabber',
+#  :address          => '188712_juba_server_infra@conf.hipchat.com',
+#  :interval         => 1,
+#  :rollup_threshold => 0
+#}
+#Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_hipchat])
 
 #medium_vb = {
 #  :type             => 'voiceblue_email2sms',
@@ -39,3 +39,11 @@ Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_hipchat]
 #  :rollup_threshold => 0
 #}
 #Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_vb])
+
+medium_hipchatv2 = {
+  :type             => 'hipchat',
+  :address          => '4081935',
+  :interval         => 1,
+  :rollup_threshold => 0
+}
+Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_hipchatv2])

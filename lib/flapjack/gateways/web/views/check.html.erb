@@ -220,6 +220,7 @@
   <div id="output" class="col-md-6">
     <h4>Output: <%= h @check_summary %></h4>
     <p><%= h @check_details %></p>
+    <br />
     <% if @check_perfdata && @check_perfdata.is_a?(Array) %>
     <h4>Performance Data:</h4>
     <table>
@@ -230,17 +231,19 @@
       </tr>
       <% end %>
     </table>
+    <br />
     <% end %>
     <% if @check_extra_data && @check_extra_data.is_a?(Hash) && ! @check_extra_data.empty? %>
     <h4>Check Information:</h4>
-    <table>
+    <table class="table table-hover table-condensed">
       <% @check_extra_data.each do |k,v| %>
       <tr>
         <td><%= k %></td>
-        <td><%= v %></td>
+        <td><%=h v %></td>
       </tr>
       <% end %>
     </table>
+  	<br />
     <% end %>
     <table class="table table-hover table-condensed">
       <tr>

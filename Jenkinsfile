@@ -2,13 +2,8 @@
 // TODO: Use Docker ?
 
 node('rvm&&golang&&redis') {
-  withRvm('ruby-2.2.0') {
-	stage('Checkout from git') {
-	
-	  // TEST
-	  sh 'ruby -v'
-	  sh 'env'
-	
+  withRvm('ruby-2.2.9') {
+	stage('Checkout from git') {	
       checkout scm
       sh '#!/bin/bash\n[[ -f Gemfile.lock ]] && rm Gemfile.lock; true'
   	}
@@ -35,9 +30,7 @@ node('rvm&&golang&&redis') {
       rake 'build'
     }
 
-	//Requires config file: /tmp/flapjack/flapjack_config.yaml
 	//stage('Live test') {
-    //  sh 'redis-cli -n 13 FLUSHALL'
     //  sh 'test/live_test.sh ${jenkins_working_dir}'
     //}
   }
@@ -51,11 +44,11 @@ def withRvm(version, cl) {
 }
 
 def withRvm(version, gemset, cl) {
-    RVM_ROOT="/usr/share/rvm"
-    RVM_HOME="$HOME/.rvm"
+    RVM_HOME="/usr/local/rvm"    
     paths = [
         "$RVM_HOME/gems/$version@$gemset/bin",
         "$RVM_HOME/gems/$version@global/bin",
+        "$RVM_HOME/gems/$version/bin",
         "$RVM_HOME/rubies/$version/bin",
         "$RVM_HOME/bin",
         "${env.PATH}"
@@ -71,7 +64,7 @@ def withRvm(version, gemset, cl) {
         "MY_RUBY_HOME=$RVM_HOME/rubies/$version",
         "IRBRC=$RVM_HOME/rubies/$version/.irbrc",
         "RUBY_VERSION=$version"
-    ]) {
+        ]) {
             cl()
     }
 }

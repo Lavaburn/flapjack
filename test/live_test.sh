@@ -1,13 +1,17 @@
 #!/bin/bash
 
-config_file="/tmp/flapjack/flapjack_config.yaml"
-environment="dev"
+config_file="test/flapjack_config.yaml"
+environment="development"
 
 working_dir=$1
 
 export FLAPJACK_ENV=${environment}
 
 cd $working_dir
+
+# Requirements
+gem install flapjack-diner -v 1.4.0
+gem install redis
 
 # Start Server
 bundle exec bin/flapjack -n $environment -c ${config_file} server start
@@ -26,3 +30,5 @@ ruby test/fail.rb
 # Stop Server 
 bundle exec bin/flapjack -n $environment -c ${config_file} server stop
   
+# Clean up Redis
+redis-cli -n 13 FLUSHALL

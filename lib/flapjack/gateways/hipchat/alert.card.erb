@@ -1,0 +1,38 @@
+{
+	"notify": true,
+	"color": "<%= @color %>",
+	"message": "<%= @alert.state_title_case %>: <%= @alert.check %>",
+	"card": {
+		"id": "<%= @alert_id %>",
+		"style": "application",
+	 	"format": "medium",
+		"title": "<%= @alert.summary %>",
+		"description": {
+			"format": "html",
+			"value": "<% if @alert.details -%><%= @alert.details %><% end -%>"
+		},
+		"activity": {
+			"html": "<%= @alert.state_title_case %>: <%= @alert.check %>",
+			"icon": {
+				"url": "https://static.rcswimax.com/images/logo.gif"
+			}
+		},
+		"attributes": [
+			{
+				"label": "Entity",
+				"value": {
+					"label": "<%= @alert.entity %>"
+				}
+			}
+			<% if @ack_str %>
+			,		
+			{
+				"label": "Acknowledge",
+				"value": {
+					"label": "<%= @ack_str %>"
+				}
+			}
+			<% end %>
+		]
+	}
+}

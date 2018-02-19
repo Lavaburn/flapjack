@@ -1,9 +1,13 @@
 ## Flapjack Changelog
 
+# RCS - 1.8.0 - 2018-02-18
+- Feature: Hipchat gateway using REST API v2 for Room notifications.  (@Lavaburn)
+- Bugfix for 1.7.3 - Extra data now correctly displayed on web interface.  (@Lavaburn)
+
 # RCS - 1.7.3 - 2016-12-28
 - Feature: Allow extra parameter extra_data [Hash] in gateway roll-ups.  (@Lavaburn)
 - Feature: Allow extra parameter extra_data [Hash] in web interface.  (@Lavaburn)
-  
+
 # RCS - 1.7.2 - 2016-01-14
 - Feature: Allow extra parameter: extra_data [Hash] (event incoming => alert outgoing).  (@Lavaburn)
   This would allow us to send graphs/URLs from Sensu and output them to Mail,Hipchat

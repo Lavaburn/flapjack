@@ -1,0 +1,80 @@
+---
+
+development:
+  pid_dir: tmp/pids/
+  log_dir: log/
+  daemonize: yes
+  logger:
+    level: DEBUG
+    syslog_errors: yes
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    db: 13
+  processor:
+    enabled: yes
+    queue: events
+    notifier_queue: notifications
+    archive_events: true
+    events_archive_maxage: 10800
+    new_check_scheduled_maintenance_duration: 0 seconds
+    new_check_scheduled_maintenance_ignore_tags:
+      - bypass_ncsm
+    logger:
+      level: DEBUG
+      syslog_errors: yes
+  notifier:
+    enabled: yes
+    queue: notifications
+    email_queue: email_notifications
+    sms_queue: sms_notifications
+    sms_nexmo_queue: sms_nexmo_notifications
+    sms_twilio_queue: sms_twilio_notifications
+    jabber_queue: jabber_notifications
+    pagerduty_queue: pagerduty_notifications
+    hipchat_queue: hipchat_notifications
+    notification_log_file: log/notification.log
+    default_contact_timezone: UTC
+    logger:
+      level: DEBUG
+      syslog_errors: yes
+  nagios-receiver:
+    fifo: "/var/cache/nagios3/event_stream.fifo"
+    pid_dir: "tmp/pids/"
+    log_dir: "log/"
+  nsca-receiver:
+    fifo: "/var/lib/nagios3/rw/nagios.cmd"
+    pid_dir: "tmp/pids/"
+    log_dir: "log/"
+  gateways:  
+    # Hipchat Room Notifications
+    hipchat:
+      enabled: yes
+      queue: hipchat_notifications
+      auth_token: "zYZ6bF1zikKKllIvUWC8bLd8GaMnmggL9CsVFK7j"
+      format: 'card'
+      logger:
+        level: DEBUG
+        syslog_errors: yes      
+    # Browsable web interface
+    web:
+      enabled: yes
+      port: 3080
+      timeout: 300
+      auto_refresh: 120
+      access_log: "log/web_access.log"
+      api_url: "http://localhost:3081/"
+      show_exceptions: true
+      logger:
+        level: DEBUG
+        syslog_errors: yes
+    # HTTP API server
+    jsonapi:
+      enabled: yes
+      port: 3081
+      timeout: 300
+      access_log: "log/jsonapi_access.log"
+      base_url: "http://localhost:3081/"
+      logger:
+        level: DEBUG
+        syslog_errors: yes

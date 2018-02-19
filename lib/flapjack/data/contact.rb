@@ -30,7 +30,8 @@ module Flapjack
         'jabber',
         'pagerduty',
         'sns',
-        'voiceblue_email2sms'
+        'voiceblue_email2sms',
+        'hipchat'
       ]
 
       def self.all(options = {})
