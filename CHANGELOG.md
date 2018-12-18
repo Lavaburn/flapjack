@@ -1,5 +1,8 @@
 ## Flapjack Changelog
 
+# RCS - 1.9.0 - 2018-12-18
+- Feature: Modified Slack gateway for new API using Webhooks.  (@Lavaburn)
+
 # RCS - 1.8.0 - 2018-02-18
 - Feature: Hipchat gateway using REST API v2 for Room notifications.  (@Lavaburn)
 - Bugfix for 1.7.3 - Extra data now correctly displayed on web interface.  (@Lavaburn)

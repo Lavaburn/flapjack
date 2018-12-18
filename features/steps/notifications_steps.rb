@@ -62,12 +62,12 @@ Given /^the user wants to receive Voiceblue notifications for entity '([\w\.\-]+
                               :redis => @notifier_redis )
 end
 
-Given /^the user wants to receive Hipchat notifications for entity '([\w\.\-]+)'$/ do |entity|
+Given /^the user wants to receive Slack notifications for entity '([\w\.\-]+)'$/ do |entity|
   add_contact( 'id'         => '0999',
                'first_name' => 'John',
                'last_name'  => 'Smith',
                'email'      => 'johns@example.dom',
-               'media'      => {'hipchat' => 'room1'} )
+               'media'      => {'slack' => 'https://hooks.slack.com/services/AAAAA/BBBBB/CCCCCCCCCCCCC'} )
   Flapjack::Data::Entity.add({'id'       => '5000',
                               'name'     => entity,
                               'contacts' => ["0999"]},
@@ -150,8 +150,8 @@ Then /^an Voiceblue notification for entity '([\w\.\-]+)' should be queued for t
   expect(queue.select {|n| n['event_id'] =~ /#{entity}:ping/ }).not_to be_empty
 end
 
-Then /^a Hipchat notification for entity '([\w\.\-]+)' should be queued for the user$/ do |entity|
-  queue = redis_peek('hipchat_notifications')
+Then /^a Slack notification for entity '([\w\.\-]+)' should be queued for the user$/ do |entity|
+  queue = redis_peek('slack_notifications')
   expect(queue.select {|n| n['event_id'] =~ /#{entity}:ping/ }).not_to be_empty
 end
 
@@ -255,23 +255,23 @@ Given /^a user Voiceblue notification has been queued for entity '([\w\.\-]+)'$/
                             :redis => @notifier_redis)
 end
 
-Given /^a user Hipchat notification has been queued for entity '([\w\.\-]+)'$/ do |entity|
+Given /^a user Slack notification has been queued for entity '([\w\.\-]+)'$/ do |entity|
   Flapjack::Data::Entity.add({'id'   => '5000',
                               'name' => entity},
                              :redis => @redis )
-  @hipchat_notification = {'notification_type'  => 'problem',
+  @slack_notification = {'notification_type'  => 'problem',
                        'contact_first_name' => 'John',
                        'contact_last_name'  => 'Smith',
                        'state'              => 'critical',
                        'summary'            => 'Socket timeout after 10 seconds',
                        'time'               => Time.now.to_i,
                        'event_id'           => "#{entity}:ping",
-                       'address'            => 'room1',
+                       'address'            => 'https://hooks.slack.com/services/AAAAA/BBBBB/CCCCCCCCCCCCC',
                        'id'                 => 1,
                        'state_duration'     => 30,
                        'duration'           => 45}
 
-  Flapjack::Data::Alert.add('hipchat_notifications', @hipchat_notification,
+  Flapjack::Data::Alert.add('slack_notifications', @slack_notification,
                             :redis => @notifier_redis)
 end
 
@@ -348,16 +348,14 @@ When /^the Voiceblue notification handler runs successfully$/ do
   drain_alerts('voiceblue_email2sms_notifications', @voiceblue_email)
 end
 
-When /^the Hipchat notification handler runs successfully$/ do
+When /^the Slack notification handler runs successfully$/ do
   # Stub Request
-  stub_request(:post, "https://api.hipchat.com/v2/room/room1/notification?auth_token=TOKEN123").
+  stub_request(:post, "https://hooks.slack.com/services/AAAAA/BBBBB/CCCCCCCCCCCCC").
         to_return(:status => 200)
   
-  @hipchat_notification = Flapjack::Gateways::Hipchat.new(:config => {
-    'auth_token' => 'TOKEN123',  
-  }, :redis_config => @redis_opts, :logger => @logger)
+  @slack_notification = Flapjack::Gateways::Slack.new(:config => {}, :redis_config => @redis_opts, :logger => @logger)
 
-  drain_alerts('hipchat_notifications', @hipchat_notification)
+  drain_alerts('slack_notifications', @slack_notification)
 end
 
 When /^the SMS notification handler fails to send an SMS$/ do
@@ -400,16 +398,14 @@ When /^the Voiceblue notification handler fails to send an SMS$/ do
   drain_alerts('voiceblue_email2sms_notifications', @voiceblue_email)
 end
 
-When /^the Hipchat notification handler fails to send a notification$/ do
+When /^the Slack notification handler fails to send a notification$/ do
   # Stub Request
-  stub_request(:post, "https://api.hipchat.com/v2/room/room1/notification?auth_token=TOKEN123").
+  stub_request(:post, "https://hooks.slack.com/services/AAAAA/BBBBB/CCCCCCCCCCCCC").
         to_return(:status => 500)
 
-  @hipchat_notification = Flapjack::Gateways::Hipchat.new(:config => {
-    'auth_token' => 'TOKEN123',
-  }, :redis_config => @redis_opts, :logger => @logger)
+  @slack_notification = Flapjack::Gateways::Slack.new(:config => {}, :redis_config => @redis_opts, :logger => @logger)
 
-  drain_alerts('hipchat_notifications', @hipchat_notification)
+  drain_alerts('slack_notifications', @slack_notification)
 end
 
 When /^the email notification handler runs successfully$/ do
@@ -468,8 +464,8 @@ Then /^the user should( not)? receive an Voiceblue notification$/ do |negativity
   expect(@voiceblue_email.instance_variable_get('@sent')).to eq(negativity.nil? ? 1 : 0)
 end
 
-Then /^the user should( not)? receive a Hipchat notification$/ do |negativity|
-  expect(@hipchat_notification.instance_variable_get('@sent')).to eq(negativity.nil? ? 1 : 0)
+Then /^the user should( not)? receive a Slack notification$/ do |negativity|
+  expect(@slack_notification.instance_variable_get('@sent')).to eq(negativity.nil? ? 1 : 0)
 end
 
 Then /^the user should( not)? receive an email notification$/ do |negativity|

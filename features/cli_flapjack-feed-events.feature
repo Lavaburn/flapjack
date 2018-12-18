@@ -101,4 +101,4 @@ test:
     When I run `cat tmp/cucumber_cli/invalid-json.json | bundle exec bin/flapjack -n test -c tmp/cucumber_cli/flapjack-feed-events.yaml receiver json`
     Then the exit status should be 1
     And  the output should not contain "Enqueued event data, "
-    And  the output should contain "expected comma at line 2"
+    And  the output should contain "expected comma () at line 2"

@@ -106,11 +106,8 @@ production:
     # Sends notifications via Slack
     slack:
       enabled: no
-      queue: slack_notifications
-      account_sid: "webhookbot"
-      endpoint: "https://hooks.slack.com/services/xxx/yyy/"
-      auth_token: "zzzzz"
-      from: ""
+      queue: slack_notifications      
+      format: "attachment"
       logger:
         level: INFO
         syslog_errors: yes

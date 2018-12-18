@@ -107,8 +107,7 @@ module Flapjack
           if (alert.rollup == 'recovery')
             @color = "green"
           elsif (alert.state == 'warning')
-
-          
+            @color = "yellow"          
           end
         end
 

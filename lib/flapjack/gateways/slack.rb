@@ -1,13 +1,20 @@
 #!/usr/bin/env ruby
 
-require 'em-synchrony'
-require 'em-synchrony/em-http'
+require 'erb'
+require 'socket'
+require 'chronic_duration'
 require 'active_support/inflector'
 
-require 'flapjack/redis_pool'
+require 'json'
 
-require 'flapjack/data/alert'
+require 'em-synchrony'
+require 'em-synchrony/em-http'
+
+require 'flapjack/redis_pool'
 require 'flapjack/utility'
+
+require 'flapjack/data/entity_check'
+require 'flapjack/data/alert'
 
 module Flapjack
   module Gateways
@@ -53,37 +60,46 @@ module Flapjack
       end
 
       def deliver(alert)
-        account_sid = @config["account_sid"]
-        endpoint    = @config["endpoint"]
-        icon_emoji  = @config["icon_emoji"] || ':ghost:'
+        # Settings
+        alert_type = alert.rollup ? 'rollup' : 'alert'
+        format     = @config['format'] || 'text'
 
-        channel         = "##{alert.address}"
-        channel         = '#general' if (channel.size == 1)
-        notification_id = alert.notification_id
-        message_type    = alert.rollup ? 'rollup' : 'alert'
-
+        address    = alert.address
+        
+        # Template Binding
         slack_template_erb, slack_template =
-          load_template(@config['templates'], message_type, 'text',
+          load_template(@config['templates'], alert_type, format,
                         File.join(File.dirname(__FILE__), 'slack'))
+
+        if (alert_type == 'alert')
+          if (alert.state == 'ok')
+            @color = "good"
+          elsif (alert.state == 'warning')
+            @color = "warning"
+          elsif (alert.state == 'critical')
+            @color = "danger"
+          elsif (alert.state == 'unknown')
+            @color = "warning"
+          else
+            @color = "#FF66FF"
+          end
+        else
+          if (alert.rollup == 'recovery')
+            @color = "good"
+          elsif (alert.state == 'warning')
+            @color = "warning"
+          end
+        end       
 
         @alert  = alert
         bnd     = binding
+        
+        notification_id = alert.notification_id
 
-        begin
-          message = slack_template_erb.result(bnd).chomp
-        rescue => e
-          @logger.error "Error while executing the ERB for an sms: " +
-            "ERB being executed: #{slack_template}"
-          raise
-        end
-
+        # Validation
         errors = []
 
-        [
-         [endpoint, "Slack endpoint is missing"],
-         [account_sid, "Slack account_sid is missing"]
-        ].each do |val_err|
-
+        [[address, "Slack Webhook URL is missing"]].each do |val_err|
           next unless val_err.first.nil? || (val_err.first.respond_to?(:empty?) && val_err.first.empty?)
           errors << val_err.last
         end
@@ -93,16 +109,26 @@ module Flapjack
           return
         end
 
-        payload = Flapjack.dump_json(
-          'channel'    => channel,
-          'username'   => account_sid,
-          'text'       => message,
-          'icon_emoji' => icon_emoji
+        # Template Creation
+        begin
+          message = slack_template_erb.result(bnd).chomp
+        rescue => e
+          @logger.error "Error while executing the ERB for Slack notification: " +
+            "ERB being executed: #{slack_template}"
+          raise
+        end
+        @logger.debug "message: #{message.inspect}"
+
+        # Create Payload
+        content_type = (format == 'text') ? 'text/plain' : 'application/json'
+
+        http = EM::HttpRequest.new(address).post(
+          :head  => {
+            'Content-Type' => content_type
+          },
+          :body  => message
         )
-        @logger.debug "payload: #{payload.inspect}"
-
-        http = EM::HttpRequest.new("#{endpoint}").post(:body => {'payload' => payload})
-
+        
         @logger.debug "server response: #{http.response}"
 
         status = (http.nil? || http.response_header.nil?) ? nil : http.response_header.status
@@ -124,4 +150,3 @@ module Flapjack
     end
   end
 end
-

@@ -40,10 +40,10 @@ Flapjack::Diner.update_entities(entity_all_data[:id], :add_contact => contact_ni
 #}
 #Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_vb])
 
-medium_hipchatv2 = {
-  :type             => 'hipchat',
-  :address          => '4081935',
+medium_slack_wh = {
+  :type             => 'slack',
+  :address          => 'https://hooks.slack.com/services/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',
   :interval         => 1,
   :rollup_threshold => 0
 }
-Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_hipchatv2])
+Flapjack::Diner.create_contact_media(contact_nicolas_data[:id], [medium_slack_wh])

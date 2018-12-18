@@ -35,10 +35,10 @@ Feature: notifications
     Then an email notification for entity 'example.com' should be queued for the user
     And an SMS notification for entity 'example.com' should not be queued for the user
 
-  Scenario: Queue a Hipchat notification
-    Given the user wants to receive Hipchat notifications for entity 'example.com'
+  Scenario: Queue a Slack notification
+    Given the user wants to receive Slack notifications for entity 'example.com'
     When an event notification is generated for entity 'example.com'
-    Then a Hipchat notification for entity 'example.com' should be queued for the user
+    Then a Slack notification for entity 'example.com' should be queued for the user
 
   Scenario: Queue SMS and email notifications
     Given the user wants to receive SMS notifications for entity 'example.com' and email notifications for entity 'example2.com'
@@ -69,10 +69,10 @@ Feature: notifications
     When the Voiceblue notification handler runs successfully
     Then the user should receive an Voiceblue notification
 
-  Scenario: Send a queued Hipchat notification
-    Given a user Hipchat notification has been queued for entity 'example.com'
-    When the Hipchat notification handler runs successfully
-    Then the user should receive a Hipchat notification
+  Scenario: Send a queued Slack notification
+    Given a user Slack notification has been queued for entity 'example.com'
+    When the Slack notification handler runs successfully
+    Then the user should receive a Slack notification
 
   Scenario: Handle a failure to send a queued SMS notification
     Given a user SMS notification has been queued for entity 'example.com'
@@ -89,10 +89,10 @@ Feature: notifications
     When the Voiceblue notification handler fails to send an SMS
     Then the user should not receive an Voiceblue notification
 
-  Scenario: Handle a failure to send a queued Hipchat notification
-    Given a user Hipchat notification has been queued for entity 'example.com'
-    When the Hipchat notification handler fails to send an SMS
-    Then the user should not receive a Hipchat notification
+  Scenario: Handle a failure to send a queued Slack notification
+    Given a user Slack notification has been queued for entity 'example.com'
+    When the Slack notification handler fails to send an SMS
+    Then the user should not receive a Slack notification
 
   Scenario: Send a queued email notification
     Given a user email notification has been queued for entity 'example.com'

@@ -1,0 +1,8 @@
+{
+	"text": "<%= @alert.type_sentence_case %>: <%= @alert.rollup_alerts.length %> alerts",
+	"attachments": [{
+		"title": "<%= @alert.rollup_states_summary %>",
+		"color": "<%= @color %>",
+		"text": "<%= @alert.rollup_states_detail_text(:max_checks_per_state => 5) %>"
+	}]
+}

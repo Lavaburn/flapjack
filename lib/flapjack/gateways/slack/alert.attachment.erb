@@ -1,0 +1,23 @@
+{
+	"text": "<%= @alert.state_title_case %>: <%= @alert.check %>",
+	"attachments": [{
+		"title": "<%= @alert.summary %>",
+		"color": "<%= @color %>",
+		"text": "<% if @alert.details -%><%= @alert.details %><% end -%>"
+		"fields": [
+			{
+				"title": "Entity",
+				"value": "<%= @alert.entity %>",
+				"short": true
+			}
+			<% if @ack_str %>
+			,		
+			{
+				"title": "Acknowledge",
+				"value": "<%= @ack_str %>",
+				"short": true
+			}
+			<% end %>
+		]
+	}]
+}

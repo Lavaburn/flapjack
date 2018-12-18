@@ -33,6 +33,7 @@ development:
     jabber_queue: jabber_notifications
     pagerduty_queue: pagerduty_notifications
     hipchat_queue: hipchat_notifications
+    slack_queue: slack_notifications
     notification_log_file: log/notification.log
     default_contact_timezone: UTC
     logger:
@@ -48,11 +49,10 @@ development:
     log_dir: "log/"
   gateways:  
     # Hipchat Room Notifications
-    hipchat:
+    slack:
       enabled: yes
-      queue: hipchat_notifications
-      auth_token: "zYZ6bF1zikKKllIvUWC8bLd8GaMnmggL9CsVFK7j"
-      format: 'card'
+      queue: slack_notifications
+      format: 'attachment'
       logger:
         level: DEBUG
         syslog_errors: yes      
